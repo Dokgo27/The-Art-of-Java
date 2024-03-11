@@ -691,9 +691,9 @@ public class SearchCrawler extends JFrame
   }
 
   // 해당 페이지 내용에 사용자가 입력한 검색어가 있는지 검사
-  private boolean searchStringMatches(String pageContents, String searchString,boolean caseSensitive){
+  private boolean searchStringMatches(String pageContents, String searchString, boolean caseSensitive){
     String searchContents = pageContents;
-
+    
     // 대소문자를 구분하지 않는다면 비교를 위해 페이지 내용을 전부 소문자로 변경
     if (!caseSensitive) {
       searchContents = pageContents.toLowerCase();
@@ -718,21 +718,21 @@ public class SearchCrawler extends JFrame
 
     return true;
   }
-  public void BrokenLinnkChecker(String url){
-        
+  public boolean BrokenLinnkChecker(URL url){
         try {
-            URL c_url = new URL(url);
-            HttpURLConnection connection = (HttpURLConnection) c_url.openConnection();
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("HEAD"); // HEAD 요청을 사용하여 응답 코드만 확인
-            
             int responseCode = connection.getResponseCode();
             if (responseCode == HttpURLConnection.HTTP_OK) {
                 System.out.println(" 링크가 정상입니다." + url);
+                return true;
             } else {
                 System.out.println(" 링크가 깨졌습니다. 응답 코드: " + responseCode + " " + url);
+                return false;
             }
         } catch (Exception e) {
             System.out.println("링크 접속 중 오류가 발생했습니다: " + e.getMessage()+ " " + url);
+            return false;
         }
   }
   
@@ -758,13 +758,16 @@ public class SearchCrawler extends JFrame
 
       // 크롤링할 리스트에서 현재 처리할 URL을 얻음
       String url = (String) toCrawlList.iterator().next();
-      BrokenLinnkChecker(url);
       // 크롤링할 리스트에서 URL 제거
       toCrawlList.remove(url);
 
       // 스트링 url을 URL 객체로 변환
       URL verifiedUrl = verifyUrl(url);
-
+      
+      // 깨진링크인지 아닌지 판별
+      if (!(BrokenLinnkChecker(verifiedUrl))) {
+        continue;
+      }
       // URL이 금지된 경로라면 처리하지 않는다.(양심적인 크롤러를 만들자!)
       if (!isRobotAllowed(verifiedUrl)) {
         continue;
@@ -789,7 +792,7 @@ public class SearchCrawler extends JFrame
           retrieveLinks(verifiedUrl, pageContents, crawledList,
             limitHost);
 
-        // 크롤랑할 리스트에 링크 추가
+        // 크롤링할 리스트에 링크 추가
         toCrawlList.addAll(links);
 
         // 페이지에서 검색어가 있다면 검색 결과에 추가
