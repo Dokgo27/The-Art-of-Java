@@ -718,7 +718,6 @@ public class SearchCrawler extends JFrame
 
     return true;
   }
-//aa
   public void BrokenLinnkChecker(String url){
         
         try {
