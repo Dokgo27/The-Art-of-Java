@@ -400,7 +400,7 @@ public class SearchCrawler extends JFrame
         try {
           logFileWriter = new PrintWriter(new FileWriter(logFile));
         } catch (Exception e) {
-          showError("Unable to open matches log file.");
+          showError("Unable to open matches log file.");!
           return;
         }
 

@@ -6,44 +6,42 @@ import javax.swing.*;
 import javax.swing.event.*;
 import javax.swing.text.html.*;
 
-// The Mini Web Browser.
-public class MiniBrowser extends JFrame
-  implements HyperlinkListener
+// 미니 브라우저
+public class MiniBrowser extends JFrame implements HyperlinkListener
 {
-  // These are the buttons for iterating through the page list.
+  // 페이지 리스트 내를 반복할 버튼들
   private JButton backButton, forwardButton;
 
-  // Page location text field.
+  // 페이지 위치 텍스트 필드
   private JTextField locationTextField;
 
-  // Editor pane for displaying pages.
+  // 페이지를 출력하기 위한 Editor pane
   private JEditorPane displayEditorPane;
 
-  // Browser's list of pages that have been visited.
+  // 브라우저가 방문한 페이지들의 리스트
   private ArrayList pageList = new ArrayList();
 
-  // Constructor for Mini Web Browser.
+  // 미니 브라우저의 생성자
   public MiniBrowser()
   {
-    // Set application title.
+    // 어플리케이션의 제목 설정
     super("Mini Browser");
 
-    // Set window size.
+    // 윈도우의 크기를 설정
     setSize(640, 480);
 
-    // Handle closing events.
+    // closing 이벤트 처리
     addWindowListener(new WindowAdapter() {
       public void windowClosing(WindowEvent e) {
         actionExit();
       }
     });
 
-    // Set up file menu.
+    // file 메뉴를 설정
     JMenuBar menuBar = new JMenuBar();
     JMenu fileMenu = new JMenu("File");
     fileMenu.setMnemonic(KeyEvent.VK_F);
-    JMenuItem fileExitMenuItem = new JMenuItem("Exit",
-      KeyEvent.VK_X);
+    JMenuItem fileExitMenuItem = new JMenuItem("Exit",KeyEvent.VK_X);
     fileExitMenuItem.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent e) {
         actionExit();
@@ -53,7 +51,7 @@ public class MiniBrowser extends JFrame
     menuBar.add(fileMenu);
     setJMenuBar(menuBar);
 
-    // Set up button panel.
+    // button 패널을 설정
     JPanel buttonPanel = new JPanel();
     backButton = new JButton("< Back");
     backButton.addActionListener(new ActionListener() {
@@ -88,7 +86,7 @@ public class MiniBrowser extends JFrame
     });
     buttonPanel.add(goButton);
 
-    // Set up page display.
+    // 페이지 출력을 설정
     displayEditorPane = new JEditorPane();
     displayEditorPane.setContentType("text/html");
     displayEditorPane.setEditable(false);
@@ -100,34 +98,32 @@ public class MiniBrowser extends JFrame
       BorderLayout.CENTER);
   }
 
-  // Exit this program.
+  // 프로그램 종료
   private void actionExit() {
     System.exit(0);
   }
 
-  // Go back to the page viewed before the current page.
+  // 현재 페이지 이전의 페이지로 이동
   private void actionBack() {
     URL currentUrl = displayEditorPane.getPage();
     int pageIndex = pageList.indexOf(currentUrl.toString());
     try {
-      showPage(
-        new URL((String) pageList.get(pageIndex - 1)), false);
+      showPage(new URL((String) pageList.get(pageIndex - 1)), false);
     }
     catch (Exception e) {}
   }
 
-  // Go forward to the page viewed after the current page.
+  // 현재 페이지 다음의 페이지로 이동
   private void actionForward() {
     URL currentUrl = displayEditorPane.getPage();
     int pageIndex = pageList.indexOf(currentUrl.toString());
     try {
-      showPage(
-        new URL((String) pageList.get(pageIndex + 1)), false);
+      showPage(new URL((String) pageList.get(pageIndex + 1)), false);
     }
     catch (Exception e) {}
   }
 
-  // Load and show the page specified in the location text field.
+  // 위치 텍스트 필드에서 지정한 페이지를 보여줌
   private void actionGo() {
     URL verifiedUrl = verifyUrl(locationTextField.getText());
     if (verifiedUrl != null) {
@@ -137,47 +133,46 @@ public class MiniBrowser extends JFrame
     }
   }
 
-  // Show dialog box with error message.
+  // 대화상자에 에러 메시지를 출력
   private void showError(String errorMessage) {
-    JOptionPane.showMessageDialog(this, errorMessage,
-      "Error", JOptionPane.ERROR_MESSAGE);
+    JOptionPane.showMessageDialog(this, errorMessage, "Error", JOptionPane.ERROR_MESSAGE);
   }
 
-  // Verify URL format.
+  // URL 형식을 검사
   private URL verifyUrl(String url) {
     // Only allow HTTP URLs.
-    if (!url.toLowerCase().startsWith("http://"))
+    if (!url.toLowerCase().startsWith("http://") || !url.toLowerCase().startsWith("https://"))
       return null;
 
-    // Verify format of URL.
+    // URL 형식을 검증
     URL verifiedUrl = null;
     try {
       verifiedUrl = new URL(url);
     } catch (Exception e) {
       return null;
     }
-
     return verifiedUrl;
   }
 
-  /* Show the specified page and add it to
-     the page list if specified. */
+  /* 지정한 페이지를 보여주고,
+   * 필요하면 이 페이지를 페이지 리스트에 추가함
+  */
   private void showPage(URL pageUrl, boolean addToList)
   {
-    // Show hour glass cursor while crawling is under way.
+    // 웹페이지 검색(crawling)이 진행중일 때 모래시계를 보여줌
     setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
 
     try {
-      // Get URL of page currently being displayed.
+      // 현재 표시중인 페이지의 URL을 얻음
       URL currentUrl = displayEditorPane.getPage();
 
-      // Load and display specified page.
+      //지정한 페이지를 띄우고 표시함.
       displayEditorPane.setPage(pageUrl);
 
-      // Get URL of new page being displayed.
+      // 새롭게 표시될 페이지의 URL을 얻음
       URL newUrl = displayEditorPane.getPage();
 
-      // Add page to list if specified.
+      // 필요하다면 페이지를 리스트에 추가
       if (addToList) {
         int listSize = pageList.size();
         if (listSize > 0) {
@@ -192,26 +187,25 @@ public class MiniBrowser extends JFrame
         pageList.add(newUrl.toString());
       }
 
-      // Update location text field with URL of current page.
+      // 현재 페이지의 URL로 위치 텍스트 필드가 갱신됨
       locationTextField.setText(newUrl.toString());
 
-      // Update buttons based on the page being displayed.
+      // 출력될 페이지에 기반해 버튼들이 갱신됨
       updateButtons();
     }
     catch (Exception e)
     {
-      // Show error messsage.
+      // 에러 메시지를 출력
       showError("Unable to load page");
     }
     finally
     {
-      // Return to default cursor.
+      // 기본 커서로 돌아감
       setCursor(Cursor.getDefaultCursor());
     }
   }
 
-  /* Update back and forward buttons based on
-     the page being displayed. */
+  /* 표시될 페이지에 기반해서 Back 버튼과 Forward 버튼의 상태를 갱신*/
   private void updateButtons() {
     if (pageList.size() < 2) {
       backButton.setEnabled(false);
@@ -225,7 +219,7 @@ public class MiniBrowser extends JFrame
     }
   }
 
-  // Handle hyperlink's being clicked.
+  // 클릭된 하이퍼링크들을 처리
   public void hyperlinkUpdate(HyperlinkEvent event) {
     HyperlinkEvent.EventType eventType = event.getEventType();
     if (eventType == HyperlinkEvent.EventType.ACTIVATED) {
@@ -241,7 +235,7 @@ public class MiniBrowser extends JFrame
     }
   }
 
-  // Run the Mini Browser.
+  // 미니 브라우저를 실행
   public static void main(String[] args) {
     MiniBrowser browser = new MiniBrowser();
     browser.show();

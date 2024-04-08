@@ -4,11 +4,25 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a596effc-e0a9-493c-976f-b86296a00886" name="Changes" comment="" />
+    <list default="true" id="a596effc-e0a9-493c-976f-b86296a00886" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Chapter2/PDemo.java" beforeDir="false" afterPath="$PROJECT_DIR$/Chapter2/PDemo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Chapter2/Parser.java" beforeDir="false" afterPath="$PROJECT_DIR$/Chapter2/Parser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Chapter2/Simple/PDemo.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Chapter2/Simple/Parser.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Chapter6/SearchCrawler.java" beforeDir="false" afterPath="$PROJECT_DIR$/Chapter6/SearchCrawler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Chapter7/MiniBrowser.java" beforeDir="false" afterPath="$PROJECT_DIR$/Chapter7/MiniBrowser.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 8
@@ -28,8 +42,9 @@
     "Application.SearchCrawler.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/dokgo/Desktop/hello-spring",
+    "last_opened_file_path": "C:/Users/dokgo/Desktop/dokgo/2024.1/프로그래밍 언어론/Report#4Java_code",
     "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.0",
     "project.structure.side.proportion": "0.0"
@@ -64,14 +79,6 @@
         <item itemvalue="Application.DownloadManager" />
       </list>
     </recent_temporary>
-  </component>
-  <component name="SharedIndexes">
-    <attachedChunks>
-      <set>
-        <option value="jdk-11.0.22-corretto-11.0.22-4caba194b151-868cef46" />
-        <option value="jdk-21.0.2-openjdk-21.0.2-4caba194b151-4f524021" />
-      </set>
-    </attachedChunks>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">

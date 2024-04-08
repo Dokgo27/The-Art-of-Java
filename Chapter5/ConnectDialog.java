@@ -38,8 +38,7 @@ public class ConnectDialog extends JDialog
 
     // 설정 패널 구현
     JPanel settingsPanel = new JPanel();
-    settingsPanel.setBorder(
-      BorderFactory.createTitledBorder("Connection Settings"));
+    settingsPanel.setBorder(BorderFactory.createTitledBorder("Connection Settings"));
     GridBagConstraints constraints;
     GridBagLayout layout = new GridBagLayout();
     settingsPanel.setLayout(layout);
